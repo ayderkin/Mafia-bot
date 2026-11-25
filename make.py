@@ -7,7 +7,7 @@
   python3 make.py --no-reel             # skip video even on reel days
   python3 make.py --week                # 7 days starting --date (preview)
 
-Weekly plan (game night = Friday 19:00):
+Weekly plan (game night = Friday 7:00 PM):
   Mon: role story + countdown            + REEL
   Tue: fact story + countdown            + feed poster 4:5
   Wed: question story + countdown        + REEL
@@ -89,7 +89,7 @@ def build_day(d, out, spec=None, reel=True):
         made.append(p)
         captions.insert(0, "Подпись к Reels:\n" + rspec.get("caption", "") + "\n\n" + LIB["hashtags"])
     with open(os.path.join(out, f"{d}_captions.txt"), "w", encoding="utf-8") as f:
-        f.write(f"MAFIA NYC — материалы на {d} ({['пн','вт','ср','чт','пт','сб','вс'][d.weekday()]}). Ближайшая игра: пятница, {gdate}, 19:00.\n\n")
+        f.write(f"MAFIA NYC — материалы на {d} ({['пн','вт','ср','чт','пт','сб','вс'][d.weekday()]}). Ближайшая игра: пятница, {gdate}, 7:00 PM.\n\n")
         f.write("\n\n---\n\n".join(captions) if captions else "Сегодня только сторис — подписи не нужны.")
     made.append(os.path.join(out, f"{d}_captions.txt"))
     return made

@@ -14,7 +14,7 @@ BRAND = {
     "name": "MAFIA NYC",
     "handle": "@thedonstablemafia",
     "day": "ПЯТНИЦА",
-    "time": "19:00",
+    "time": "7:00 PM",
     "place": "МАНХЭТТЕН",
     "signup": "директ или Telegram",
 }

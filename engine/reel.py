@@ -115,14 +115,17 @@ def sc_clock(t, s):
     lay = layer(); dl = ImageDraw.Draw(lay)
     tracked(dl, 540, 520, s.get("top", BRAND["day"]), F("med", 44), CREAM + (230,), 0.45)
     comp(img, lay, prog(t, 0.05, 0.35))
-    hh, mm = s.get("time", BRAND["time"]).split(":")
-    big = F("black", 300); a = prog(t, 0, 0.3)
+    parts = s.get("time", BRAND["time"]).split()
+    hh, mm = parts[0].split(":"); ampm = parts[1] if len(parts) > 1 else ""
+    big = F("black", 300); sm = F("black", 90); a = prog(t, 0, 0.3)
     lay = layer(); dl = ImageDraw.Draw(lay)
     wh, wm, wc = dl.textlength(hh, font=big), dl.textlength(mm, font=big), dl.textlength(":", font=big)
-    x0 = 540 - (wh + wc + wm) / 2; yc = 720 + (1 - eo(a)) * 40
+    wa = dl.textlength(ampm, font=sm) + 20 if ampm else 0
+    x0 = 540 - (wh + wc + wm + wa) / 2; yc = 720 + (1 - eo(a)) * 40
     dl.text((x0, yc), hh, font=big, fill=CREAM + (255,), anchor="lm")
     if int(t * 2) % 2 == 0: dl.text((x0 + wh, yc - 10), ":", font=big, fill=RED + (255,), anchor="lm")
     dl.text((x0 + wh + wc, yc), mm, font=big, fill=CREAM + (255,), anchor="lm")
+    if ampm: dl.text((x0 + wh + wc + wm + 20, yc + 85), ampm, font=sm, fill=RED + (255,), anchor="ls")
     comp(img, lay, a)
     if s.get("l1"): kin(img, s["l1"], fit_font(s["l1"], "black", 104, 760), 540, 1010, t, 0.55, CREAM)
     if s.get("l2"): kin(img, s["l2"], fit_font(s["l2"], "black", 150, 760), 540, 1150, t, 0.9, RED, glow_it=True)

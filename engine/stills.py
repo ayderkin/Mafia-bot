@@ -51,7 +51,7 @@ def story_gameday(path, line="ЕЩЁ ЕСТЬ СВОБОДНЫЕ МЕСТА"):
     dl.text((540, 860), "СЕГОДНЯ", font=F("black", 220), fill=RED + (255,), anchor="mm")
     glow(img, lay.copy(), 1.1, 50); comp(img, lay)
     d = ImageDraw.Draw(img)
-    d.text((540, 1100), BRAND["time"], font=F("black", 260), fill=CREAM + (255,), anchor="mm")
+    d.text((540, 1100), BRAND["time"], font=fit_font(BRAND["time"], "black", 260, 900), fill=CREAM + (255,), anchor="mm")
     tracked(d, 540, 1300, BRAND["place"], F("semi", 50), CREAM + (255,), 0.45)
     tracked(d, 540, 1400, line, F("med", 36), DIM + (255,), 0.15)
     _footer(img, W, H, "ПИШИ — ЗАПИШЕМ")
@@ -113,7 +113,7 @@ def story_quote(path, quote, author=""):
     for ln in lines[:7]:
         d.text((540, y), ln, font=f, fill=CREAM + (255,), anchor="mm"); y += 110
     if author: tracked(d, 540, y + 50, author.upper(), F("semi", 38), DIM + (255,), 0.3)
-    _footer(img, W, H, "КАЖДУЮ ПЯТНИЦУ · 19:00")
+    _footer(img, W, H, f"КАЖДУЮ ПЯТНИЦУ · {BRAND['time']}")
     _save(img, path)
 
 def story_thanks(path, text="Спасибо всем, кто был за столом! Кто сегодня блефовал лучше всех? Отмечай в комментариях."):
