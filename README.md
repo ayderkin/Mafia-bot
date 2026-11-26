@@ -27,6 +27,11 @@ python3 make.py --spec today.json  # свежие тексты на сегодн
 | Сб | «Спасибо за игру» | — |
 | Вс | факт + вопрос | — |
 
+## Ежедневный пакет (с ноября 2026)
+
+Каждый день: 3 сторис (минимум одна — `video`), 1 Reels с подписью, карусель с интересной историей о мафии (настоящей или об игре).
+Таблица ниже — темы сторис по дням.
+
 ## Свежие тексты: today.json
 
 Если передать `--spec`, бот берёт тексты из файла, а не из `content/library.json`:
@@ -44,7 +49,10 @@ python3 make.py --spec today.json  # свежие тексты на сегодн
 }
 ```
 
-Типы сторис: `countdown`, `gameday` (line), `role` (role, text), `fact` (title, text),
+Карусель в ленту (1080x1350): `"carousel": {"id", "caption", "cta_line", "slides": [{"kicker","title","sub"}, {"title","text"}, ...]}` —
+первый слайд обложка, дальше история по слайдам, последний слайд с записью добавляется сам.
+
+Типы сторис: `video` (scenes — как у Reels, 8–12 сек), `countdown`, `gameday` (line), `role` (role, text), `fact` (title, text),
 `question` (question), `quote` (quote, author), `thanks` (text).
 Роли для карт: МИРНЫЙ, ДОКТОР, ШЕРИФ, МАФИЯ, ДОН, МАНЬЯК, ЛЮБОВНИЦА.
 

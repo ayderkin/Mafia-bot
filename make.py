@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 from engine import stills
 from engine.reel import make_reel
+from engine.carousel import make_carousel
 from engine.stills import MONTHS
 
 LIB = json.load(open(os.path.join(ROOT, "content", "library.json"), encoding="utf-8"))
@@ -63,6 +64,11 @@ def build_day(d, out, spec=None, reel=True):
         elif ty == "quote":
             q = s if "quote" in s else pick(LIB["quotes"], d)
             stills.story_quote(p, q["quote"], q.get("author", ""))
+        elif ty == "video":
+            p = p[:-4] + ".mp4"
+            make_reel({"scenes": s["scenes"]}, p, os.path.join(out, f"_work_s{i}"))
+            try: os.rmdir(os.path.join(out, f"_work_s{i}"))
+            except OSError: pass
         elif ty == "thanks":
             stills.story_thanks(p, s.get("text", "Спасибо всем, кто был за столом! Кто вчера блефовал лучше всех? Отмечай в комментариях."))
         else:
@@ -76,6 +82,10 @@ def build_day(d, out, spec=None, reel=True):
         captions.append("Подпись к афише:\n" + spec.get("poster_caption", LIB["captions"]["poster"].format(date=gdate)) + "\n\n" + LIB["hashtags"])
     if d.weekday() == 5:
         captions.append("Подпись к сторис/посту:\n" + LIB["captions"]["thanks"].format(date=gdate))
+    cspec = spec.get("carousel")
+    if cspec:
+        made += make_carousel(cspec, out, str(d))
+        captions.append("Подпись к карусели (лента):\n" + cspec.get("caption", "") + "\n\n" + LIB["hashtags"])
     rspec = spec.get("reel")
     if reel and (reel_kind or rspec):
         if not rspec:
